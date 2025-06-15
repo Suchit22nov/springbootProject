@@ -5,6 +5,7 @@ import com.Learning_hub.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ public class StudentService {
     public StudentRepository studentRepository;
 
     public StudentEntity createEntry(StudentEntity userEntry) {
+        userEntry.setDate(LocalDateTime.now());
         return studentRepository.save(userEntry);
     }
 
