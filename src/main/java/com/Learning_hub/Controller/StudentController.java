@@ -21,7 +21,7 @@ public class StudentController {
         return new ArrayList<>(studentServices.getAllDetails());
     }
     @GetMapping("id/{studentId}")
-    public Optional<StudentEntity> getStudentById(@PathVariable Long studentId ) {
+    public StudentEntity getStudentById(@PathVariable Long studentId ) {
         return studentServices.getStudentById(studentId);
     }
 

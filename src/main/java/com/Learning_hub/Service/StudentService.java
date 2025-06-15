@@ -17,8 +17,8 @@ public class StudentService {
         return studentRepository.save(userEntry);
     }
 
-    public Optional<StudentEntity> getStudentById(Long id) {
-        return studentRepository.findById(id);
+    public StudentEntity getStudentById(Long id) {
+        return studentRepository.findById(id).orElse(null);
     }
 
 
