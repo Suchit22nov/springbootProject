@@ -13,19 +13,29 @@ public class StudentService {
     @Autowired
     public StudentRepository studentRepository;
 
-    public StudentEntity createEntry(StudentEntity userEntry){
-       return studentRepository.save(userEntry);
+    public StudentEntity createEntry(StudentEntity userEntry) {
+        return studentRepository.save(userEntry);
     }
-    public Optional<StudentEntity> getStudentById(Long id){
+
+    public Optional<StudentEntity> getStudentById(Long id) {
         return studentRepository.findById(id);
     }
 
 
-    public List<StudentEntity> getAllDetails(){
+    public List<StudentEntity> getAllDetails() {
         return studentRepository.findAll();
     }
 
-    public void  DeleteEntry(Long id){
-         studentRepository.deleteById(id);
+    public void DeleteEntry(Long id) {
+        studentRepository.deleteById(id);
+    }
+
+    public StudentEntity updateEntry(Long id, StudentEntity studentUpdateEntry) {
+        StudentEntity old = studentRepository.findById(id).orElse(null);
+
+        old.setName(studentUpdateEntry.getName());
+        old.setWork(studentUpdateEntry.getWork());
+
+        return studentRepository.save(old);
     }
 }

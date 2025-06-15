@@ -38,6 +38,6 @@ public class StudentController {
 
     @PutMapping("id/{StudentId}")
     public StudentEntity PutEntries(@PathVariable Long StudentId, @RequestBody StudentEntity updateEntries) {
-        return null;
+        return studentServices.updateEntry(StudentId,updateEntries);
     }
 }
