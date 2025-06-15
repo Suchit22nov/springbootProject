@@ -34,7 +34,7 @@ public class StudentService {
 
     public StudentEntity updateEntry(Long id, StudentEntity studentUpdateEntry) {
         StudentEntity old = studentRepository.findById(id).orElse(null);
-
+        studentUpdateEntry.setDate(LocalDateTime.now());
         old.setName(studentUpdateEntry.getName());
         old.setWork(studentUpdateEntry.getWork());
 

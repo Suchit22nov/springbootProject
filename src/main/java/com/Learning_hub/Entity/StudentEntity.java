@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 public class StudentEntity {
     @Id
     private long id;
+
     private String name;
+
     private String work;
 
     public LocalDateTime getDate() {
