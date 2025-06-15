@@ -13,15 +13,16 @@ public class StudentController {
 
     @Autowired
     public StudentService studentServices;
-
+    //Used for local Storage when database is not present
     private final Map<Long, StudentEntity> studentsDetail = new HashMap<>();
 
     @GetMapping
     public List<StudentEntity> getAll() {
         return new ArrayList<>(studentServices.getAllDetails());
     }
+
     @GetMapping("id/{studentId}")
-    public Optional<StudentEntity> getStudentById(@PathVariable Long studentId ) {
+    public Optional<StudentEntity> getStudentById(@PathVariable Long studentId) {
         return studentServices.getStudentById(studentId);
     }
 
