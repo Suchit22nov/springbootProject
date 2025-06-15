@@ -1,6 +1,11 @@
 package com.Learning_hub.Entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class StudentEntity {
+    @Id
     private long id;
     private String name;
     private String work;
