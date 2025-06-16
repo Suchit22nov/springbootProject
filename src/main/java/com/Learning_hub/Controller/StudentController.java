@@ -3,6 +3,8 @@ package com.Learning_hub.Controller;
 import com.Learning_hub.Entity.StudentEntity;
 import com.Learning_hub.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -17,27 +19,48 @@ public class StudentController {
     private final Map<Long, StudentEntity> studentsDetail = new HashMap<>();
 
     @GetMapping
-    public List<StudentEntity> getAll() {
-        return new ArrayList<>(studentServices.getAllDetails());
+    public ResponseEntity<List<StudentEntity>> getAll() {
+        ArrayList<StudentEntity>  all = new ArrayList<>(studentServices.getAllDetails());
+        if (all.isEmpty()){
+            return new  ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return  new ResponseEntity<>(all, HttpStatus.OK);
+
     }
+
+
     @GetMapping("id/{studentId}")
-    public StudentEntity getStudentById(@PathVariable Long studentId ) {
-        return studentServices.getStudentById(studentId);
+    public ResponseEntity<StudentEntity> getStudentById(@PathVariable Long studentId ) {
+        StudentEntity getwork= studentServices.getStudentById(studentId);
+        if(getwork!= null){
+            return  new ResponseEntity<>(getwork, HttpStatus.OK);
+        }
+        return  new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+
     }
 
     @PostMapping
-    public StudentEntity postData(@RequestBody StudentEntity studentEntries) {
-        return studentServices.createEntry(studentEntries);
+    public ResponseEntity<StudentEntity> postData(@RequestBody StudentEntity studentEntries) {
+        StudentEntity postData =   studentServices.createEntry(studentEntries);
+        if (postData!= null){
+            return new ResponseEntity<>(postData,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("id/{StudentId}")
-    public String DeleteEntries(@PathVariable Long StudentId) {
+    public ResponseEntity<?> DeleteEntries(@PathVariable Long StudentId) {
         studentServices.DeleteEntry(StudentId);
-        return "Deleted Entry whose id is " + StudentId;
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("id/{StudentId}")
-    public StudentEntity PutEntries(@PathVariable Long StudentId, @RequestBody StudentEntity updateEntries) {
-        return studentServices.updateEntry(StudentId,updateEntries);
+    public ResponseEntity<?> PutEntries(@PathVariable Long StudentId, @RequestBody StudentEntity updateEntries) {
+        StudentEntity updateWork = studentServices.updateEntry(StudentId,updateEntries);
+        if(updateWork!= null){
+            return  new ResponseEntity<>(updateWork, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 }
