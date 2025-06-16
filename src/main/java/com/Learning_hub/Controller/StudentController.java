@@ -15,7 +15,7 @@ public class StudentController {
 
     @Autowired
     public StudentService studentServices;
-
+    //Used for local Storage when database is not present
     private final Map<Long, StudentEntity> studentsDetail = new HashMap<>();
 
     @GetMapping
@@ -29,6 +29,7 @@ public class StudentController {
     }
 
 
+
     @GetMapping("id/{studentId}")
     public ResponseEntity<StudentEntity> getStudentById(@PathVariable Long studentId ) {
         StudentEntity getwork= studentServices.getStudentById(studentId);
@@ -37,7 +38,7 @@ public class StudentController {
         }
         return  new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 
-    }
+
 
     @PostMapping
     public ResponseEntity<StudentEntity> postData(@RequestBody StudentEntity studentEntries) {
